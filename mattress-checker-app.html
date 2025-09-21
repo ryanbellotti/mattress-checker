@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mattress Fiberglass Checker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        header {
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #555;
+            font-size: 1.1em;
+            margin-top: 0;
+        }
+        .disclaimer {
+            background-color: #fffbe6;
+            border: 1px solid #ffe58f;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+        .disclaimer summary {
+            font-weight: 700;
+            cursor: pointer;
+            color: #d79b00;
+        }
+        .disclaimer p {
+            margin-top: 10px;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+        .search-container {
+            margin-bottom: 25px;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        #searchInput:focus {
+            outline: none;
+            border-color: #1a237e;
+            box-shadow: 0 0 8px rgba(26, 35, 126, 0.2);
+        }
+        .mattress-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .mattress-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .card-header h3 {
+            margin: 0 0 15px 0;
+            color: #1a237e;
+            font-size: 1.4em;
+        }
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .status-item p {
+            margin: 0 0 5px 0;
+            font-weight: 500;
+            color: #444;
+        }
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .status-yes { background-color: #ffebee; color: #c62828; }
+        .status-no { background-color: #e8f5e9; color: #2e7d32; }
+        .status-unclear { background-color: #fff3e0; color: #ef6c00; }
+        .card-notes {
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .card-notes p {
+            margin: 0;
+            line-height: 1.6;
+            font-size: 0.95em;
+            color: #555;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #888;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mattress Fiberglass Checker</h1>
+            <p class="subtitle">An informational tool from the Mattress Fiberglass Support & Awareness Group.</p>
+        </header>
+        <details class="disclaimer">
+            <summary>⚠️ Important Disclaimer: Please Read Before Using</summary>
+            <p>This website and its contents are provided for informational purposes only... [Full disclaimer text here]</p>
+        </details>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔎 Type a mattress brand to search...">
+        </div>
+        <div id="mattressList"></div>
+        <footer>
+            <p>&copy; 2025 Mattress Fiberglass Support and Awareness Group</p>
+        </footer>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mattressData = [
+            { name: '5 Little Monkeys', ever: 'No', currently: 'No', notes: 'States it uses a certified fiberglass-free fire sock.' },
+            { name: 'Allswell (Walmart)', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Widely known to contain fiberglass and is the subject of class-action lawsuits. Models use a fiberglass inner sock and are still believed to contain it.' },
+            { name: 'AmazonBasics', ever: 'Yes', currently: 'Unclear', notes: 'Confirmed Yes. Widely reported by consumers to contain fiberglass. Status is unclear as the product line is often discontinued or rebranded. Reportedly removed, but this is unconfirmed.' },
+            { name: 'Amerisleep (All Models)', ever: 'No', currently: 'No', notes: 'No Fiberglass. Consistently uses a silica-based fire barrier (rayon knit with silica yarn) and has always marketed as fiberglass-free. Never used.' },
+            { name: 'Ashley Furniture Chime', ever: 'Yes', currently: 'No (Older Models Only)', notes: 'Confirmed Yes. Fiberglass was present in older Chime models, which were subject to lawsuits. Newer production has reportedly phased it out.' },
+            { name: 'Ashley Sleep Gruve', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. The Gruve line, particularly older models, is confirmed to use fiberglass and is believed to still contain it. Newer 2024+ models may be transitioning away.' },
+            { name: 'Avenco Hybrid', ever: 'Yes', currently: 'Unclear / Likely', notes: 'Reported Yes. Budget brand with numerous consumer reports of fiberglass contamination. The company\'s claims are inconsistent and the current status is unconfirmed.' },
+            { name: 'Avocado (All Models)', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses GOTS-certified organic wool as a natural, safe fire barrier. Has never used fiberglass.' },
+            { name: 'Awara', ever: 'No', currently: 'No', notes: 'Uses hydrated silica and wool as a fire barrier.' },
+            { name: 'Bear Mattress', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a fire barrier made from rayon, a cellulose-based fiber. Has never used fiberglass.' },
+            { name: 'Beautyrest', ever: 'Yes (Reported)', currently: 'No (Main Lines) / Varies', notes: 'Reported Yes. Main lines (Black, Harmony Lux) are fiberglass-free. However, reports exist for some budget models. Status for the entire brand is unconfirmed, but higher-end models are safe.' },
+            { name: 'Bedinabox', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a proprietary fire-retardant fabric and explicitly states it is fiberglass-free. Never used.' },
+            { name: 'Bedstory', ever: 'Yes', currently: 'Yes', notes: 'This brand is frequently cited in consumer complaints and reports for containing fiberglass.' },
+            { name: 'Best Price Mattress', ever: 'Yes', currently: 'Yes', notes: 'Reported Yes. Notorious for using fiberglass, with a high volume of consumer complaints and visual evidence. Current status is unconfirmed but likely still contains it.' },
+            { name: 'Big Fig', ever: 'No', currently: 'No', notes: 'Uses a fire barrier of rayon and polyester.' },
+            { name: 'Birch', ever: 'No', currently: 'No', notes: 'Owned by Helix; uses wool as a natural fire barrier.' },
+            { name: 'Brentwood Home', ever: 'No', currently: 'No', notes: 'Sister brand to Avocado; uses natural materials like wool as a fire barrier.' },
+            { name: 'Brooklyn Bedding', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a silica/rayon knit fire sock, a safe alternative. Has never used fiberglass.' },
+            { name: 'Casper (All Models)', ever: 'Yes', currently: 'No', notes: 'Confirmed Yes (Older models). Current models (post-2023) are fiberglass-free. Older/discontinued models (Original, Nova Hybrid) contained fiberglass.' },
+            { name: 'Classic Brands Cool Gel', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Confirmed to use fiberglass and has been cited in lawsuits. Vibe is one of their brand names. Still contains fiberglass.' },
+            { name: 'Crystli 10" Hybrid', ever: 'Yes', currently: 'Unclear / Likely', notes: 'Reported Yes. Budget Amazon brand with a high number of consumer reports citing fiberglass. Current status is unconfirmed.' },
+            { name: 'Diamond Mattress', ever: 'No', currently: 'No', notes: 'States use of a textile-based (rayon/polyester) fire retardant.' },
+            { name: 'Douglas (US)', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. The US version of this mattress has been confirmed to contain fiberglass, unlike the Canadian version. Still contains it.' },
+            { name: 'DreamCloud', ever: 'Yes (Reported)', currently: 'No', notes: 'Reported Yes. Owned by Resident (Nectar). While early reports existed, the company confirms all current models are fiberglass-free. Likely removed.' },
+            { name: 'Eight Sleep', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a knit sock made of modacrylic and polyester that is inherently flame retardant. Never used.' },
+            { name: 'Elm Sleep Resort', ever: 'No', currently: 'No', notes: 'No Fiberglass. States it uses a fiberglass-free fire barrier. Never used.' },
+            { name: 'Emma', ever: 'Yes (Reported)', currently: 'No', notes: 'Reported Yes. Older European models had issues, but the company states current US models (post-2023) are fiberglass-free.' },
+            { name: 'Endy', ever: 'No', currently: 'No', notes: 'Canadian brand; uses a rayon/polyester fire sock.' },
+            { name: 'Full Moon Mattress (US)', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Known to contain fiberglass and is believed to still contain it.' },
+            { name: 'GhostBed', ever: 'Yes (Reported)', currently: 'No', notes: 'Confirmed Yes (Older models). Early models had reports of issues. The company has been vocal about being fiberglass-free since ~2022.' },
+            { name: 'Habitat Furnishings', ever: 'No', currently: 'No', notes: 'No Fiberglass. Small brand that states it has always been fiberglass-free. Never used.' },
+            { name: 'Helix Sleep', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a rayon/polyester fire-retardant yarn. Has never used fiberglass.' },
+            { name: 'Home Life', ever: 'Yes', currently: 'No (Older Models Only)', notes: 'Reported Yes. Budget brand known for fiberglass in older models only.' },
+            { name: 'IKEA (General)', ever: 'Yes', currently: 'No (Most Models)', notes: 'Confirmed Yes (Amsosen). Only specific older/discontinued models had confirmed fiberglass. The vast majority of current IKEA mattresses are fiberglass-free.' },
+            { name: 'Kingsdown', ever: 'No', currently: 'No', notes: 'States use of fiberglass-free fire barriers.' },
+            { name: 'Kirkland Signature', ever: 'No', currently: 'No', notes: 'No Fiberglass. Made by Stearns & Foster for Costco; uses fiberglass-free barriers. Never used.' },
+            { name: 'Layla', ever: 'Yes (Reported)', currently: 'No', notes: 'Reported Yes. Had reports on older models. The company states all mattresses produced post-2025 will be fiberglass-free.' },
+            { name: 'Leesa', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a fire-retardant yarn made of various safe fibers. Has never used fiberglass.' },
+            { name: 'Linenspa', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. A budget brand notorious for containing fiberglass; subject of a major class-action lawsuit. Still contains it.' },
+            { name: 'Loom & Leaf (Saatva)', ever: 'No', currently: 'No', notes: 'No Fiberglass. A Saatva brand; uses natural thistle pulp as a fire barrier. Never used.' },
+            { name: 'Lucid', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Widely reported to contain fiberglass and frequently named in lawsuits alongside Zinus. Still contains it.' },
+            { name: 'Lull', ever: 'Yes (Reported)', currently: 'No', notes: 'Reported Yes. Some early models had reports of issues. Lull has stated they have been fiberglass-free since 2020.' },
+            { name: 'Mainstays (Walmart)', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Walmart\'s budget brand, widely confirmed to use fiberglass. Likely still does.' },
+            { name: 'Milliard', ever: 'Yes (Reported)', currently: 'Unclear', notes: 'Reported Yes. Reports exist from consumers, but the company\'s stance is not transparent. High-risk and unconfirmed.' },
+            { name: 'Molblly', ever: 'Yes', currently: 'Unclear', notes: 'Confirmed Yes. Budget Amazon brand confirmed by many consumers to contain fiberglass. Current status is unclear but likely still contains it.' },
+            { name: 'Molecule Mattress', ever: 'Yes', currently: 'Unclear', notes: 'Confirmed Yes. Confirmed to have used fiberglass. The company\'s claims about current materials are not fully transparent.' },
+            { name: 'My Green Mattress', ever: 'No', currently: 'No', notes: 'Uses organic wool as a natural fire barrier.' },
+            { name: 'NapQueen', ever: 'Yes (Reported)', currently: 'Unclear', notes: 'Reported Yes. Multiple consumer reports of fiberglass. Treat as high-risk and unconfirmed.' },
+            { name: 'Nectar', ever: 'Yes (Reported)', currently: 'No', notes: 'Confirmed Yes (Older models). Similar to DreamCloud, early reports existed, but Resident confirms all current models are fiberglass-free. Status unclear for older stock.' },
+            { name: 'Nest Bedding', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses safe alternatives like wool or hydrated silica blends. Has never used fiberglass.' },
+            { name: 'Nolah', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a rayon/silica fire sock. Has never used fiberglass.' },
+            { name: 'Novaform', ever: 'Yes', currently: 'No', notes: 'Confirmed Yes (Older models). Formerly used fiberglass. Costco/Novaform state that all models produced since 2024 are fiberglass-free.' },
+            { name: 'Novilla', ever: 'Yes', currently: 'Yes', notes: 'Popular Amazon brand with many consumer reports and visual evidence of fiberglass contamination.' },
+            { name: 'Novosbed (US)', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. The US version has been confirmed to contain fiberglass and still contains it.' },
+            { name: 'Olee Sleep', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Budget brand confirmed through consumer reports to contain fiberglass and still does.' },
+            { name: 'Perfect Cloud', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Confirmed to have used fiberglass and is believed to still use it.' },
+            { name: 'Posh & Lavish', ever: 'No', currently: 'No', notes: 'No Fiberglass. Luxury brand that uses natural wool as a fire barrier. Never used.' },
+            { name: 'PrimaSleep', ever: 'Yes (Reported)', currently: 'Unclear', notes: 'Reported Yes. Budget brand with reports of fiberglass. Treat as high-risk and unconfirmed.' },
+            { name: 'Puffy', ever: 'Yes', currently: 'No', notes: 'Confirmed Yes (Older models). Discontinued models contained fiberglass. Current models are confirmed fiberglass-free.' },
+            { name: 'Purple', ever: 'No', currently: 'No', notes: 'Correction: Purple does NOT use fiberglass. It uses a proprietary, non-particulate silica-based fire barrier that is considered safe and is not woven fiberglass.' },
+            { name: 'Saatva', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses natural thistle pulp or organic wool. Has never used fiberglass.' },
+            { name: 'Sealy / Simmons', ever: 'Yes', currently: 'Yes / Varies', notes: 'Confirmed Yes. These legacy brands use fiberglass in many lower-end models. Higher-end lines are often fiberglass-free. Still contains it in many products.' },
+            { name: 'Serta', ever: 'Yes', currently: 'Yes / Varies', notes: 'Confirmed Yes. Similar to Sealy, many Serta models contain fiberglass, especially in the Perfect Sleeper line. Still contains it in many products.' },
+            { name: 'Signature Sleep', ever: 'Yes', currently: 'No (Older Models Only)', notes: 'Confirmed Yes. Known for fiberglass use in the past.' },
+            { name: 'Silk & Snow (US)', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. The US version of this mattress has been confirmed to contain fiberglass and still does.' },
+            { name: 'Sleep Innovations', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Confirmed to use fiberglass in its fire barrier and still does.' },
+            { name: 'Sleep Number', ever: 'Yes (Reported)', currently: 'No', notes: 'Reported Yes. Older models had reports of issues. The company states it has been fiberglass-free since ~2020.' },
+            { name: 'Sleepy\'s', ever: 'Yes (Reported)', currently: 'Unclear', notes: 'Reported Yes. A Mattress Firm in-house brand with a mixed and unclear history regarding fiberglass use. Unconfirmed status.' },
+            { name: 'Spindle', ever: 'No', currently: 'No', notes: 'Uses organic wool as a natural fire barrier.' },
+            { name: 'Stearns & Foster', ever: 'No', currently: 'No', notes: 'Luxury brand owned by Tempur Sealy, but uses fiberglass-free fire barriers in this line.' },
+            { name: 'Subrtex', ever: 'Yes (Reported)', currently: 'Unclear', notes: 'Reported Yes. Reports from consumers suggest the presence of fiberglass. Unconfirmed status.' },
+            { name: 'Sunrising Bedding', ever: 'No', currently: 'No', notes: 'No Fiberglass. States it has always used wool and other natural materials. Never used.' },
+            { name: 'Sweetnight', ever: 'Yes', currently: 'Yes / Unclear', notes: 'Reported Yes. Popular Amazon brand with extensive consumer reports. Some newer models claim to be fiberglass-free, but this is unconfirmed.' },
+            { name: 'Swiss Ortho Sleep', ever: 'Yes (Reported)', currently: 'Unclear', notes: 'Reported Yes. Reports from consumers suggest the presence of fiberglass. Unconfirmed status.' },
+            { name: 'Tempur-Pedic', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. The company confirms its fire sock is made of a woven silica yarn, which is a form of glass fiber (fiberglass). Still contains it.' },
+            { name: 'Tuft & Needle (Main)', ever: 'No', currently: 'No', notes: 'No Fiberglass. The main T&N lines (Original, Mint) have never used fiberglass. They use a polyester/rayon barrier.' },
+            { name: 'Tuft & Needle Nod', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. The Nod, sold on Amazon, has been confirmed to contain fiberglass, unlike their other models. Still contains it.' },
+            { name: 'Tulo', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. Known to use fiberglass and still contains it.' },
+            { name: 'Vesgantti', ever: 'Yes', currently: 'Yes', notes: 'An Amazon-heavy brand with multiple credible consumer complaints about fiberglass.' },
+            { name: 'Vibe Gel Memory Foam', ever: 'Yes', currently: 'Yes', notes: 'Confirmed Yes. A brand name used by Classic Brands, which is known for using fiberglass. Still contains it.' },
+            { name: 'Wayfair Sleep', ever: 'Yes (Reported)', currently: 'Unclear', notes: 'Reported Yes. Wayfair\'s in-house brand has a high number of reports from consumers finding fiberglass. Unconfirmed status.' },
+            { name: 'WinkBeds', ever: 'No', currently: 'No', notes: 'No Fiberglass. Uses a rayon-based fire barrier. Has never used fiberglass.' },
+            { name: 'Zenhaven (Saatva)', ever: 'No', currently: 'No', notes: 'A Saatva brand; uses organic wool as a natural fire barrier.' },
+            { name: 'Zinus', ever: 'Yes', currently: 'No (Post-2024)', notes: 'Confirmed Yes (Older models). Subject of a major class-action lawsuit. The company is phasing it out in new models (post-2024).' },
+            { name: 'Zoma', ever: 'No', currently: 'No', notes: 'No Fiberglass. An Amerisleep brand that uses a safe, silica-based fire barrier. Never used.' }
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const mattressListContainer = document.getElementById('mattressList');
+
+        const renderList = (dataToRender) => {
+            mattressListContainer.innerHTML = '';
+            if (dataToRender.length === 0) {
+                mattressListContainer.innerHTML = '<p style="text-align:center; color:#777;">No matching brands found.</p>';
+                return;
+            }
+
+            dataToRender.forEach(mattress => {
+                const everStatusClass = mattress.ever.toLowerCase().includes('yes') ? 'status-yes' : 'status-no';
+                
+                let currentlyStatusClass = 'status-unclear';
+                if (mattress.currently.toLowerCase() === 'no') {
+                    currentlyStatusClass = 'status-no';
+                } else if (mattress.currently.toLowerCase().includes('yes')) {
+                    currentlyStatusClass = 'status-yes';
+                }
+
+                const cardHTML = `
+                    <div class="mattress-card">
+                        <div class="card-header">
+                            <h3>${mattress.name}</h3>
+                        </div>
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <p>Ever Contained Fiberglass?</p>
+                                <span class="status-indicator ${everStatusClass}">${mattress.ever}</span>
+                            </div>
+                            <div class="status-item">
+                                <p>Currently Contains Fiberglass?</p>
+                                <span class="status-indicator ${currentlyStatusClass}">${mattress.currently}</span>
+                            </div>
+                        </div>
+                        <div class="card-notes">
+                            <p><strong>Notes:</strong> ${mattress.notes}</p>
+                        </div>
+                    </div>
+                `;
+                mattressListContainer.innerHTML += cardHTML;
+            });
+        };
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredData = mattressData.filter(mattress => 
+                mattress.name.toLowerCase().includes(searchTerm)
+            );
+            renderList(filteredData);
+        });
+
+        // Initial render of the full list
+        renderList(mattressData);
+    });
+    </script>
+</body>
+</html>
